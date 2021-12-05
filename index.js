@@ -1,7 +1,5 @@
 import { Router } from "itty-router";
 
-const origin = "https://sunshine-social-platform-lawcyiu.pages.dev";
-
 // Create a new router
 const router = Router();
 
@@ -57,7 +55,7 @@ router.get("/posts", async () => {
 
     return new Response(json, {
         headers: {
-            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Origin": ORIGIN,
             "Content-Type": "application/json;charset=UTF-8"
         }
     });
@@ -99,7 +97,7 @@ router.post("/posts", async request => {
         errorMsg = "I only understand JSON.";
     }
 
-    const header = { "Access-Control-Allow-Origin": origin };
+    const header = { "Access-Control-Allow-Origin": ORIGIN };
 
     if (ok) {
         return new Response("success", { headers: header });
@@ -111,7 +109,7 @@ router.post("/posts", async request => {
 router.options("/posts", async request => {
     return new Response(null, {
         headers: {
-            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Origin": ORIGIN,
             "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Max-Age": 86400
