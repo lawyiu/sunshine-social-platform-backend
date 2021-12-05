@@ -1,0 +1,23 @@
+{
+    "name": "posts-worker",
+    "private": true,
+    "version": "1.0.0",
+    "description": "The worker for the Sunshine Social Media platform.",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "format": "prettier --write '**/*.{js,css,json,md}'"
+    },
+    "author": "Lawrence Yiu <lawcyiu@berkeley.edu>",
+    "license": "ISC",
+    "devDependencies": {
+        "prettier": "^1.17.0"
+    },
+    "dependencies": {
+        "@babel/core": "^7.15.8",
+        "@babel/preset-env": "^7.15.8",
+        "itty-router": "^2.1.9",
+        "jest": "^27.3.1",
+        "serverless-cloudflare-workers": "^1.2.0"
+    }
+}
