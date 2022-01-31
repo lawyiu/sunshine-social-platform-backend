@@ -112,6 +112,7 @@ router.post("/posts", async request => {
             } else if (!checkNotEmptyPost(post)) {
                 errorMsg = `Empty title, username, or content.`;
             } else {
+                delete post.captcha;
                 const key = Date.now() + ":" + post.username;
                 await Posts.put(key, JSON.stringify(post));
                 ok = true;
