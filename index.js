@@ -40,6 +40,28 @@ function checkNotEmptyPost(post) {
     }
 }
 
+const RECAPTCHA_CHECK_URL = "https://www.google.com/recaptcha/api/siteverify";
+
+// Checks captcha token is valid
+async function checkCaptcha(token) {
+    const data = new URLSearchParams();
+    data.append("secret", RECAPTCHA_SECRET);
+    data.append("response", token);
+
+    const init = {
+        method: "POST",
+        headers: {
+            "content-type": "application/x-www-form-urlencoded"
+        },
+        body: data
+    };
+
+    const resp = await fetch(RECAPTCHA_CHECK_URL, init);
+    const jsonResp = await resp.json();
+
+    return jsonResp.success;
+}
+
 /*
 GET all posts.
 */
@@ -82,9 +104,11 @@ router.post("/posts", async request => {
         }
 
         if (errorMsg == "") {
-            const result = checkObjAttributes(post, ["title", "username", "content"]);
+            const result = checkObjAttributes(post, ["title", "username", "content", "captcha"]);
             if (!result.ok) {
                 errorMsg = `Missing attribute(s): ${result.missingAttrs}`;
+            } else if (!(await checkCaptcha(post.captcha))) {
+                errorMsg = "Captcha verification failed!";
             } else if (!checkNotEmptyPost(post)) {
                 errorMsg = `Empty title, username, or content.`;
             } else {
