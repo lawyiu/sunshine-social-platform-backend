@@ -1,0 +1,32 @@
+name = "sunshine-posts-dev"
+type = "webpack"
+
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2021-10-23"
+
+kv_namespaces = [
+  { binding = "Posts", id = "your KV binding uuid here" }
+]
+
+[env.staging]
+name = "sunshine-posts-staging"
+
+kv_namespaces = [
+  { binding = "Posts", id = "your KV binding uuid here" }
+]
+
+[env.staging.vars]
+ORIGIN = "*"
+
+[env.prod]
+name = "sunshine-posts"
+
+kv_namespaces = [
+  { binding = "Posts", id = "your KV binding uuid here" }
+]
+
+[env.prod.vars]
+ORIGIN = "https://sunshine-lawcyiu.pages.dev" # Change this to your URL origin
